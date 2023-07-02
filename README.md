@@ -1,7 +1,7 @@
 # Corroded Sock
 
 A horrible name for a Rust version of [Socky](https://github.com/PeterUpfold/Socky), a simple
-tool to listen on TCP sockets to observe connection attempts to servers on the local network.
+tool to listen on TCP sockets to observe connection attempts to servers on the local host.
 
 This is designed to provide some level of visibility into any activities on your system where local servers running on Well-Known (and merely well-known, if you catch my drift) ports are being enumerated.
 
