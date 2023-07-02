@@ -1,7 +1,7 @@
 use std::env;
-use std::io::{Read, Write};
-use std::net::{TcpListener, TcpStream};
+use std::net::{TcpListener};
 use std::process::ExitCode;
+use std::fmt;
 use notify_rust::Notification;
 
 fn main() -> ExitCode {
@@ -18,7 +18,7 @@ fn main() -> ExitCode {
     match args[1].parse::<u16>() {
         Ok(v) => port = v,
         Err(e) => {
-            eprintln!("{}: Unable to parse the port number.", invocation_path.to_string_lossy());
+            eprintln!("{}: Unable to parse the port number. {e:?}", invocation_path.to_string_lossy());
         return ExitCode::from(2);
         }
     }
@@ -27,11 +27,14 @@ fn main() -> ExitCode {
 
     println!("Listening on port {}", port);
 
-    for stream in listener.incoming() {
-        Notification::new()
-        .summary("New connection on port XX")
-        .body("A new connection was made to port XX")
-        .show();
+    for _stream in listener.incoming() {
+        match Notification::new()
+        .summary(format!("New connection on port {}", port).as_str())
+        .body(format!("A new connection was made to port {}", port).as_str())
+        .show() {
+            Ok(_v) => println!("Dispatched notification"),
+            Err(e) => eprintln!("Unable to dispatch notification: {e:?}"),
+        }
     }
     
     return ExitCode::from(0);
