@@ -1,0 +1,12 @@
+[Unit]
+Description=Listen for connections to the local Steam port, 27060 and alert if any found
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/path/to/corroded_sock 27060
+
+[Install]
+WantedBy=default.target
+
+
