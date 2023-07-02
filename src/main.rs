@@ -1,7 +1,6 @@
 use std::env;
 use std::net::{TcpListener};
 use std::process::ExitCode;
-use std::fmt;
 use notify_rust::Notification;
 
 fn main() -> ExitCode {
